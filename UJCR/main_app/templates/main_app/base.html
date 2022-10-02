@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load i18n static %}
+<html lang="ru-RU" xml:lang="ru-RU">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ object.title }}</title>
+    <link rel="icon" href="127.0.0.1:8000/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/css_1.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/css.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/font-awesome.css" type="text/css"/>
+</head>
+<body class="pkp_page_index pkp_op_index has_site_logo" dir="ltr">
+
+<div class="pkp_structure_page">
+    {% include "blocks/header.html" %}
+    <!-- .pkp_structure_head -->
+
+    <div class="pkp_structure_content has_sidebar">
+        <div id="pkp_content_main" class="pkp_structure_main" role="main">
+            <div class="page_index_journal">
+                <div class="homepage_image">
+                    <img src="/static/images/poster.jpg" alt/>
+                </div>
+                <div class="additional_content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <!-- .page -->
+
+        </div>
+        {% include "blocks/left_sidebar.html" %}
+    </div>
+    <!-- pkp_structure_content -->
+    {% include "blocks/footer.html" %}
+    <!-- pkp_structure_footer_wrapper -->
+</div>
+<!-- pkp_structure_page -->
+{% include "blocks/js.html" %}
+</body>
+</html>

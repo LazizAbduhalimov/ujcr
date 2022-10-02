@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-11 14:32+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\blogs\templates\blogs\archives.html:24 .\templates\blocks\header.html:40
+msgid "Выпуски"
+msgstr "Выпуски"
+
+#: .\blogs\templates\blogs\archives.html:25
+msgid "Текущий выпуск"
+msgstr ""
+
+#: .\blogs\templates\blogs\archives.html:39
+msgid "Предыдущие выпуски"
+msgstr ""
+
+#: .\blogs\templates\blogs\article.html:67
+#: .\blogs\templates\blogs\issue.html:42 .\blogs\templates\blogs\issue.html:80
+#: .\main_app\templates\main_app\author's_articles.html:35
+msgid "Скачать"
+msgstr ""
+
+#: .\blogs\templates\blogs\article.html:72
+msgid "Просмотры"
+msgstr ""
+
+#: .\blogs\templates\blogs\article.html:77
+#: .\blogs\templates\blogs\issue.html:36
+msgid "Опубликован"
+msgstr ""
+
+#: .\blogs\templates\blogs\article.html:83
+msgid "Выпуск"
+msgstr ""
+
+#: .\blogs\templates\blogs\article.html:94
+msgid "Для цитирования"
+msgstr ""
+
+#: .\blogs\templates\blogs\article.html:105
+#: .\templates\blocks\left_sidebar.html:42
+msgid "Ключевые слова"
+msgstr ""
+
+#: .\main_app\forms.py:5
+msgid "No dots here"
+msgstr ""
+
+#: .\main_app\templates\main_app\email_confirm_page.html:5
+msgid "Пожалуйста, подтвердите свою почту, чтобы активировать аккаунт"
+msgstr "Пожалуйста, подтвердите свою почту, чтобы активировать аккаунт"
+
+#: .\main_app\templates\main_app\search.html:7
+msgid "Поиск"
+msgstr ""
+
+#: .\main_app\templates\main_app\search.html:29
+#: .\main_app\templates\main_app\search.html:53
+msgid "Найти"
+msgstr ""
+
+#: .\main_app\templates\main_app\search.html:34
+msgid "Поиск статей"
+msgstr ""
+
+#: .\main_app\templates\main_app\search.html:86
+msgid "Ничего не найдено"
+msgstr ""
+
+#: .\main_app\templates\main_app\search.html:92
+msgid "Задана пустая строка"
+msgstr ""
+
+#: .\templates\blocks\footer.html:7
+msgid "Об этой издательской системе"
+msgstr ""
+
+#: .\templates\blocks\header.html:26
+msgid "О нас"
+msgstr ""
+
+#: .\templates\blocks\header.html:35
+msgid "Редакция"
+msgstr ""
+
+#: .\templates\blocks\header.html:44
+msgid "Админ панель"
+msgstr ""
+
+#: .\templates\blocks\header.html:55
+msgid "Следующий выпуск"
+msgstr ""
+
+#: .\templates\blocks\left_sidebar.html:10
+msgid "Язык"
+msgstr ""
+
+#: .\templates\blocks\left_sidebar.html:29
+msgid "Информация"
+msgstr ""
+
+#: .\templates\blocks\left_sidebar.html:39
+msgid "Авторы"
+msgstr ""
+
+#: .\ujcr\settings.py:120
+msgid "Russian"
+msgstr ""
+
+#: .\ujcr\settings.py:121
+msgid "English"
+msgstr ""

@@ -1,0 +1,68 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="ru-RU" xml:lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UJCR | Вход</title>
+    <meta name="generator" content="Open Journal Systems 3.1.2.4"/>
+    <link rel="stylesheet" href="/static/css/css_1.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/css.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/font-awesome.css" type="text/css"/>
+</head>
+<body class="pkp_page_login pkp_op_index has_site_logo" dir="ltr">
+
+<div class="pkp_structure_page">
+
+    {% include "blocks/header.html" %}
+
+    <div class="pkp_structure_content has_sidebar">
+        <div id="pkp_content_main" class="pkp_structure_main" role="main">
+            <div class="page page_login">
+                <h1>Войти в систему</h1>
+
+                <form class="cmp_form cmp_form login" id="login" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="buttons">
+                        <button class="submit" type="submit">
+                            Войти в систему
+                        </button>
+
+                        <a href="{% url 'registration' %}" class="register">
+                            Регистрация
+                        </a>
+                    </div>
+                </form>
+                <p><a href="{% url "password_reset" %}">{% trans "Забыли пароль?" %}</a></p>
+            </div>
+
+        </div>
+
+        {% include "blocks/left_sidebar.html" %}
+    </div><!-- pkp_structure_content -->
+
+    {% include "blocks/footer.html" %}
+
+</div><!-- pkp_structure_page -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js?v=3.1.2.4" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.js?v=3.1.2.4" type="text/javascript"></script>
+<script src="http://ilizarov-journal.com/lib/pkp/js/lib/jquery/plugins/jquery.tag-it.js?v=3.1.2.4"
+        type="text/javascript"></script>
+<script src="http://ilizarov-journal.com/plugins/themes/default/js/lib/popper/popper.js?v=3.1.2.4"
+        type="text/javascript"></script>
+<script src="http://ilizarov-journal.com/plugins/themes/default/js/lib/bootstrap/util.js?v=3.1.2.4"
+        type="text/javascript"></script>
+<script src="http://ilizarov-journal.com/plugins/themes/default/js/lib/bootstrap/dropdown.js?v=3.1.2.4"
+        type="text/javascript"></script>
+<script src="http://ilizarov-journal.com/plugins/themes/default/js/main.js?v=3.1.2.4" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js?v=3.1.2.4" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.0.0/d3.layout.cloud.min.js?v=3.1.2.4"
+        type="text/javascript"></script>
+<script src="http://ilizarov-journal.com/plugins/blocks/keywordCloud/js/d3.wordcloud.min.js?v=3.1.2.4"
+        type="text/javascript"></script>
+
+
+</body>
+</html>

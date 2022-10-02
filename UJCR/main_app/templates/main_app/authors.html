@@ -1,0 +1,9 @@
+{% extends "main_app/base.html" %}
+{% block content %}
+    <div style="padding-left: 20px">
+    {% for i in authors_list %}
+        <a href="{{ i.get_absolute_url }}"><p>{{ i.name }}</p></a>
+    {% endfor %}
+    {% include "blocks/pagination.html" %}
+    </div>
+{% endblock %}

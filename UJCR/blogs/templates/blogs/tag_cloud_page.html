@@ -1,0 +1,7 @@
+{% extends "main_app/base.html" %}
+
+{% block content %}
+    {% for tag in tags %}
+        <a href="{% url 'search' %}?q=&tag={{ tag.id }}">{{ tag.title|title }} ({{ tag.related_articles_number }})</a><br>
+    {% endfor %}
+{% endblock %}
