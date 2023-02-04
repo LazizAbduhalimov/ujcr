@@ -1,23 +1,20 @@
 {% load i18n %}
 {% get_current_language as CURRENT_LANGUAGE %}
 <header class="pkp_structure_head" id="headerNavigationContainer" role="banner">
+    <div style="background-image: url('/static/images/header_background.jpg')">
     <div class="pkp_head_wrapper">
         <div class="pkp_site_name_wrapper">
-            <h1 class="pkp_site_name">
-                {% if CURRENT_LANGUAGE == "ru" %}
-                    <a href="https://www.sammi.uz/ru/journals/9" style="text-decoration: none; color: black">
-                        <img style="width: 900px; " src="/static/images/header_img.png"
-                             alt="Научно-теоретический и практический журнал">
-                    </a>
-                {% else %}
-                    <a href="https://www.sammi.uz/ru/journals/9" style="text-decoration: none; color: black">
-                        <img style="width: 800px; " src="/static/images/header_img_en.png"
-                             alt="Scientific theoretical and practical journal">
-                    </a>
-                {% endif %}
 
-            </h1>
-        </div>
+                <h1 class="pkp_site_name">
+                    <a href="https://www.sammi.uz/ru/journals/9" style="text-decoration: none; color: #ffffff">
+                        <img style="height: 175px; " src="/static/images/sammi_logo.png">
+                    </a>
+
+                    <img style="height: 175px" src="/static/images/ujcr_logo.png">
+                    <p style="float: right; color: white"><br> ISSN 2181-3388<br><br>eISSN 2181-3876 <br><br>doi.org/10.55620</p>
+                </h1>
+
+            </div>
 
         <nav class="pkp_navigation_primary_row" aria-label="Навигация сайта">
             <div class="pkp_navigation_primary_wrapper">
@@ -45,16 +42,16 @@
                         </li>
                     {% endif %}
                     {% for link in menu_links %}
-                        <li>
-                            <a href={{ link.get_absolute_url }}>{{ link.title }}</a>
-                        </li>
+                    <li>
+                        <a href={{ link.get_absolute_url }}>{{ link.title }}</a>
+                    </li>
                     {% endfor %}
 
-                    {% if next_volume %}
-                        <li>
-                            <a href="{% url 'pdf-view-volume' next_volume.slug %}">{% trans "Следующий выпуск" %}</a>
-                        </li>
-                    {% endif %}
+                {% if next_volume %}
+                    <li>
+                        <a href="{% url 'pdf-view-volume' next_volume.slug %}">{% trans "Следующий выпуск" %}</a>
+                    </li>
+                {% endif %}
 
 
                     <!--
@@ -83,7 +80,7 @@
             <nav class="pkp_navigation_user_wrapper" id="navigationUserWrapper" aria-label="Навигация пользователя">
             <ul id="navigationUser" class="pkp_navigation_user pkp_nav_list">
                 <li class="profile">
-                    <span>Имя: <strong>{{ request.user.username }}</strong></span>
+                    <span style="color: white">Имя: <strong>{{ request.user.username }}</strong></span>
                 </li>
                 <li class="profile">
                     <a href="{% url 'exit' %}"> Выйти </a>
@@ -103,6 +100,6 @@
             </ul>
         </nav>
         {% endif %}
-    </div>
+    </div></div>
     <!-- .pkp_head_wrapper -->
 </header>

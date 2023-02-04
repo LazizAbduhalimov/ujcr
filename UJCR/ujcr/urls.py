@@ -4,9 +4,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from blogs.views import Pdf_view
 from main_app.views import index, Search
-
 from django.views.static import serve as mediaserve
 from django.urls import re_path
 
@@ -25,3 +23,16 @@ urlpatterns += i18n_patterns(
     path("", include("blogs.urls")),
     path("", include("main_app.urls")),
 )
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns += [
+            re_path(f'^{settings.MEDIA_URL.lstrip("/")}(?P<path>.*)$',
+                mediaserve, {'document_root': settings.MEDIA_ROOT}),
+            re_path(f'^{settings.STATIC_URL.lstrip("/")}(?P<path>.*)$',
+                mediaserve, {'document_root': settings.STATIC_ROOT}),
+            ]
+
+handler404 = "ujcr.views.handler404"
+handler500 = 'ujcr.views.handler500'

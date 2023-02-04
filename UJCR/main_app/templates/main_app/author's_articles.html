@@ -1,11 +1,11 @@
 {% extends "main_app/base.html" %}
 {% load i18n %}
+{% block title %}
+    {{ object.name }}
+{% endblock %}
 {% block content %}
     <div class="sections">
-
-
         <div class="section">
-
             <ul class="cmp_article_list articles">
                 <span style="font-size: xx-large;"><strong>{{ object.name }}</strong></span>
                 <br>

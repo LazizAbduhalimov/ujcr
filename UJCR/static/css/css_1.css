@@ -1571,13 +1571,13 @@ img {
     margin: 0 1em;
     padding: 10px 0 8px;
     border-bottom: 2px solid transparent;
-    color: rgba(0, 0, 0, 0.84)
+    color: rgba(255, 255, 255, 0.84)
 }
 
 .pkp_navigation_primary > li > a:hover, .pkp_navigation_primary > li > a:focus {
-    color: rgba(0, 0, 0, 0.84);
+    color: rgba(255, 255, 255, 0.84);
     outline: 0;
-    border-color: rgba(0, 0, 0, 0.84)
+    border-color: rgba(255, 255, 255, 0.84)
 }
 
 .pkp_navigation_primary > li:first-child a {
@@ -1756,7 +1756,7 @@ img {
         display: inline-block;
         position: relative;
         padding: 10px 20px;
-        color: rgba(0, 0, 0, 0.84);
+        color: rgba(255, 255, 255, 0.84);
         cursor: pointer
     }
 
@@ -1869,7 +1869,7 @@ img {
 }
 
 .pkp_navigation_user > li > a, .pkp_navigation_user > li.in_focus > a, .pkp_navigation_user > li > a:hover, .pkp_navigation_user > li > a:focus {
-    color: rgba(0, 0, 0, 0.84)
+    color: rgba(255, 255, 255, 0.84)
 }
 
 .pkp_navigation_user > li:last-child > a {

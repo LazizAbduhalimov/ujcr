@@ -1,6 +1,6 @@
 from django.urls import path
-from django.contrib.auth.views import LogoutView
 from .views import *
+from ujcr.views import *
 
 urlpatterns = [
     path('tag-cloud/', TagCloudPage.as_view(), name="tag-cloud"),

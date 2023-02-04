@@ -1,4 +1,9 @@
 {% extends "main_app/base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Редакция" %}
+{% endblock %}
+
 {% block content %}
     <ul style="list-style-type: none">
         {% for post in posts %}
@@ -9,8 +14,10 @@
             <li style="margin-left: 20px; margin-top: 0">
                 {% for member in members %}
                     {% if member.post.title == post.title %}
+                    <p>
                         <a href="{{ member.get_absolute_url }}"><em>{{ member.full_name }}</em></a>,
                         {{ member.location }}
+                    </p>
                     {% endif %}
 
                 {% endfor %}

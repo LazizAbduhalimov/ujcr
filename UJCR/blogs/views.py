@@ -1,12 +1,18 @@
-from django.shortcuts import render, redirect
 from django.http import FileResponse, Http404
 from django.views.generic import ListView, DetailView
 
 from blogs.models import *
-from main_app.models import Page
 from main_app.utils import MenuMixin
-
 from ujcr.settings import MEDIA_ROOT
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('HTTP_USER_AGENT') # В REMOTE_ADDR значение айпи пользователя
+    return ip
 
 
 class ArticleView(MenuMixin, DetailView):
@@ -17,15 +23,14 @@ class ArticleView(MenuMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ArticleView, self).get_context_data(**kwargs)
         slug = self.kwargs['slug']
-        print(self.request.META["CSRF_COOKIE"])
-        try:
-            UniqueViewers.objects.get(user_id=self.request.META["CSRF_COOKIE"])
-        except:
+        ip = get_client_ip(self.request)
+        user_id = ip
+        if not UniqueViewers.objects.filter(user_id=user_id).exists():
             user = UniqueViewers()
-            user.user_id = self.request.META["CSRF_COOKIE"]
+            user.user_id = user_id
             user.save()
 
-        viewer = UniqueViewers.objects.get(user_id=self.request.META["CSRF_COOKIE"])
+        viewer = UniqueViewers.objects.get(user_id=user_id)
         a = Article.objects.get(slug=slug)
         a.viewers.add(viewer)
         a.save()
