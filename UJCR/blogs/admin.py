@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from main_app.models import Logo
 from .models import *
 from modeltranslation.admin import TabbedTranslationAdmin
+
 
 @admin.register(State)
 class AdminState(admin.ModelAdmin):
@@ -15,7 +15,9 @@ class AdminState(admin.ModelAdmin):
 @admin.register(Authors)
 class AdminAuthors(TabbedTranslationAdmin):
     list_display = [
-        "name",
+        "first_name",
+        "last_name",
+        "middle_name",
         "slug",
     ]
     readonly_fields = ["slug"]
@@ -50,6 +52,9 @@ class AdminVolume(TabbedTranslationAdmin):
         else:
             return object.status
 
+    get_doi_color.short_description = "DOI"
+    get_status_color.short_description = "Статус"
+
     list_per_page = 15
 
 
@@ -75,32 +80,42 @@ class AdminArticle(TabbedTranslationAdmin):
     list_display = [
         "cut_title",
         "doi",
-        "admin_image",
         "published_date",
-        "is_active",
         "slug"
     ]
-    filter_horizontal = ["authors",]
+    # filter_horizontal = ["authors",]
     prepopulated_fields = {"slug": ("title",)}
     exclude = ["viewers"]
-    list_editable = ["is_active"]
+    actions = ["publish"]
 
-    list_filter = ["linked_volume", "chapter"]
+    list_filter = ["linked_volume", "type"]
     list_per_page = 15
 
+    def publish(self, request, queryset):
+        row_update = queryset.update(status=ArticleStatusEnum.published.value)
+        if row_update == "1":
+            msg = "1 запись была обновлена"
+        else:
+            msg = f"{row_update} записей были обновлены"
 
-@admin.register(Logo)
-class AdminPartner(admin.ModelAdmin):
-    list_display = [
-        "title",
-        "logo_image"
-    ]
-    list_per_page = 50
+        self.message_user(request, f"{msg}")
+
+    publish.short_description = "Опубликовать"
+    publish.allowed_permissions = ("change",)
 
 
 @admin.register(UniqueViewers)
 class AdminPartner(admin.ModelAdmin):
     list_display = [
         "user_id",
+    ]
+    list_per_page = 50
+
+
+@admin.register(Comment)
+class AdminPartner(admin.ModelAdmin):
+    list_display = [
+        "reviewer",
+        "article",
     ]
     list_per_page = 50

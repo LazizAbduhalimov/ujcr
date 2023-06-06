@@ -7,13 +7,12 @@ from modeltranslation.admin import TabbedTranslationAdmin
 class AdminPage(TabbedTranslationAdmin):
     list_display = [
         "title",
+        "slug",
         "cut_content",
         "linklocation",
-        "slug"
     ]
-
     list_per_page = 15
-
+    
 
 @admin.register(LinkLocation)
 class AdminLinkLocation(admin.ModelAdmin):

@@ -7,38 +7,44 @@
     <div class="sections">
         <div class="section">
             <ul class="cmp_article_list articles">
-                <span style="font-size: xx-large;"><strong>{{ object.name }}</strong></span>
+                <span style="font-size: xx-large;"><strong>{{ object.get_full_name }}</strong></span>
                 <br>
                 <br>
-                {% for article in articles %}
-
-                    <li>
-                        <div class="obj_article_summary">
-                            <div class="title">
-                                <a href="{{ article.get_absolute_url }}"> {{ article.title }} </a>
-                            </div>
-                            <hr>
-                            <div class="meta">
-                                <div class="authors">
-                                    {% for author in article.authors.all %}
-                                        {% if author == article.authors.last %}
-                                            {{ author }}
-                                        {% else %}
-                                            {{ author }},
-                                        {% endif %}
-                                    {% endfor %}
+                {% if articles %}
+                    {% for article in articles %}
+                        <li>
+                            <div class="obj_article_summary">
+                                <div class="title">
+                                    <a href="{{ article.get_absolute_url }}"> {{ article.title }} </a>
                                 </div>
-                            </div>
-                            <ul class="galleys_links">
-                                <li>
-                                    <a class="obj_galley_link pdf"
-                                       href="{% url "pdf-view" article.slug %}"> {% trans "Скачать" %} PDF </a>
-                                </li>
-                            </ul>
+                                <hr>
+                                <div class="meta">
+                                    <div class="authors">
+                                        {% for author in article.authors.all %}
+                                            {% if author == article.authors.last %}
+                                                {{ author }}
+                                            {% else %}
+                                                {{ author }},
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <ul class="galleys_links">
+                                    <li>
+                                        <a class="obj_galley_link pdf"
+                                           href="{% url "pdf-view" article.slug %}"> {% trans "Скачать" %} PDF </a>
+                                    </li>
+                                </ul>
 
-                        </div>
-                    </li>
-                {% endfor %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <div class="entry col-md-12">
+                        <h3><i>{% trans "У автора пока что нет опубликованных статей" %}</i></h3>
+                    </div>
+                {% endif %}
+
                 {% include "blocks/pagination.html" %}
             </ul>
 

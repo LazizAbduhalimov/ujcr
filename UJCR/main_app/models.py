@@ -7,6 +7,7 @@ from pytils.translit import slugify
 
 User._meta.get_field('email')._unique = True
 
+
 class LinkLocation(models.Model):
     title = models.CharField("Название", max_length=100, default="")
 
@@ -22,7 +23,7 @@ class Page(models.Model):
     title = models.CharField("Название страницы", max_length=100)
     content = RichTextField("Содержание", blank=True)
     linklocation = models.ForeignKey(LinkLocation, verbose_name="Link Locations", null=True, on_delete=models.DO_NOTHING)
-    slug = models.SlugField("Slug страницы", max_length=200, blank=True, unique=True)
+    slug = models.SlugField("Slug страницы", max_length=200, unique=True)
 
     class Meta:
         verbose_name = "Страницу"
@@ -91,29 +92,3 @@ class EditorialMember(models.Model):
         verbose_name_plural = "Редакция"
 
         ordering = ["position"]
-
-
-class Logo(models.Model):
-    title = models.CharField("Название", max_length=150, default="")
-    url = models.CharField("Ссылка", max_length=255, default="")
-    image = models.ImageField("Лого", upload_to="images/partners/")
-
-    def logo_image(self):
-
-        if self.image:
-            return mark_safe(
-                u'<a href="{0}" target="_blank"><img src="{0}" width="100" /></a>'.format(self.image.url))
-        else:
-            return 'Image Not Found'
-
-    logo_image.short_description = 'Лого'
-    logo_image.allow_tags = True
-
-    def __str__(self):
-        return  self.title
-
-    class Meta:
-        verbose_name = "Логотип"
-        verbose_name_plural = "Логотипы"
-
-        ordering = ["title"]

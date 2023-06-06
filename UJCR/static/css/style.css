@@ -242,6 +242,12 @@ table,
 fieldset,
 form { margin-bottom: 30px; }
 
+.header-text-custom {
+	float: right;
+	color: white;
+	font-size: calc(6px + 16 * (100vw / 1280));
+}
+
 small { font-family: 'Lato', sans-serif; }
 
 

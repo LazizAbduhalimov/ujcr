@@ -19,22 +19,8 @@
             <div class="page page_issue_archive">
 
 
-                <h1>{% trans "Выпуски" %}</h1>
-                <h4>{% trans "Текущий выпуск" %}</h4>
-                <ul class="issues_archive">
-
-                    <li>
-                        <div class="obj_issue_summary">
-                            <a class="title" href="{{ current_volume.get_absolute_url }}">
-                                {{ current_volume }}
-                            </a>
-
-                            <div class="description"></div>
-                        </div>
-                    </li>
-                </ul>
+                <h1>{% trans "Архивы" %}</h1>
                 {% if object_list %}
-                    <h4>{% trans "Предыдущие выпуски" %}</h4>
                     <ul class="issues_archive">
                         {% for object in object_list %}
                             <li>
@@ -46,6 +32,8 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    {% else %}
+                    <h3><i>Нет выпусков в архиве</i></h3>
                 {% endif %}
 
 

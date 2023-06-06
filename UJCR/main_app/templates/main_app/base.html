@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-{% load i18n static%}
+{% load i18n static %}
 <html lang="ru-RU" xml:lang="ru-RU">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="google-site-verification" content="w8xbc_-Wpfon-XI6jWkxdUfhjOJdRUTv_HK_-qzG1PE" />
-    <meta name="google-site-verification" content="LzA9iYax7uWMVRr_rD85OIe4DwopeFP3thazHEYd828" />
-    <meta name="yandex-verification" content="8ee8ba49fcf874a9" />
+    <meta name="google-site-verification" content="w8xbc_-Wpfon-XI6jWkxdUfhjOJdRUTv_HK_-qzG1PE"/>
+    <meta name="google-site-verification" content="LzA9iYax7uWMVRr_rD85OIe4DwopeFP3thazHEYd828"/>
+    <meta name="yandex-verification" content="8ee8ba49fcf874a9"/>
+    {% block extra_meta %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    {% block extra_css %}{% endblock %}
     {% include "blocks/links.html" %}
 </head>
 <body class="pkp_page_index pkp_op_index has_site_logo" dir="ltr">
@@ -20,12 +22,7 @@
     <div class="pkp_structure_content has_sidebar">
         <div id="pkp_content_main" class="pkp_structure_main" role="main">
             <div class="page_index_journal">
-                <div class="homepage_image">
-                    <img src="/static/images/poster.jpg" alt/>
-                </div>
-                <div class="additional_content">
-                    {% block content %}{% endblock %}
-                </div>
+                {% block content %}{% endblock %}
             </div>
             <!-- .page -->
 
@@ -38,5 +35,6 @@
 </div>
 <!-- pkp_structure_page -->
 {% include "blocks/js.html" %}
+{% block extra_js %}{% endblock %}
 </body>
 </html>

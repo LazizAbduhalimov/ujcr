@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-forms.fields.Field.default_error_messages = {'required': _('No dots here'),}
+
 
 class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label="Login", widget=forms.TextInput(attrs={

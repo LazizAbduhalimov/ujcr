@@ -12,7 +12,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from .utils import account_activation_token
 
-from blogs.models import Volume, Article, Tags, Authors, ArticleSection
+from blogs.models import Volume, Article, Tags, Authors, ArticleSection, ArticleStatusEnum
 from main_app.forms import RegisterUserForm
 from main_app.models import *
 from main_app.utils import MenuMixin
@@ -27,6 +27,7 @@ from django.views.decorators.http import require_GET
 def favicon(request: HttpRequest):
     file = (settings.BASE_DIR / "static" / "favicon.ico").open("rb")
     return FileResponse(file)
+
 
 def index(request):
     return HttpResponseRedirect("ru/home/")
@@ -52,11 +53,11 @@ class Search(MenuMixin, ListView):
 
     def get_queryset(self):
         if self.request.GET.get("q") != "" and 'tag' not in self.request.GET:
-            queryset = Article.objects.filter(is_active=True).filter(
+            queryset = Article.objects.filter(is_draft=False, status=ArticleStatusEnum.published.value ).filter(
                 title__icontains=self.request.GET.get("q"))
             return queryset.distinct()
 
-        queryset = Article.objects.filter(is_active=True)
+        queryset = Article.objects.filter(is_draft=False, status=ArticleStatusEnum.published.value)
         tags = self.request.GET.getlist("tag")
         print(self.request.GET.getlist("tag"))
         for tag in tags:
@@ -121,10 +122,10 @@ class AuthorsPage(MenuMixin, ListView):
 
     def get_queryset(self):
         if "/ru/" in self.request.path:
-            queryset = self.model.objects.order_by("name_ru")
+            queryset = self.model.objects.order_by("last_name_ru")
         else:
-            queryset = self.model.objects.order_by("name_en")
-
+            queryset = self.model.objects.order_by("last_name_en")
+        print(queryset)
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -148,6 +149,7 @@ class AuthorsDetailPage(MenuMixin, DetailView):
 
         context["current_path"] = str(self.request.path)[3:]
         return dict(list(context.items()) + list(self.get_user_context().items()))
+
 
 class Registration(MenuMixin, ListView):
     model = User
@@ -182,7 +184,7 @@ class Registration(MenuMixin, ListView):
             # to get the domain of the current site
             current_site = get_current_site(request)
             mail_subject = 'Activation link has been sent to your email id'
-            message = render_to_string('main_app/acc_active_email.html', {
+            message = render_to_string('main_app/registration/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -223,6 +225,7 @@ class EmailConfirmation(MenuMixin, ListView):
         context["current_path"] = str(self.request.path)[3:]
         return dict(list(context.items()) + list(self.get_user_context().items()))
 
+
 class SuccessfulRegisration(MenuMixin, ListView):
     model = User
     template_name = "main_app/registration/email_activation_page.html"
@@ -233,6 +236,7 @@ class SuccessfulRegisration(MenuMixin, ListView):
         context["current_path"] = str(self.request.path)[3:]
         return dict(list(context.items()) + list(self.get_user_context().items()))
 
+
 class InvalidLink(MenuMixin, ListView):
     model = User
     template_name = "main_app/registration/invalid_link.html"
@@ -242,6 +246,7 @@ class InvalidLink(MenuMixin, ListView):
 
         context["current_path"] = str(self.request.path)[3:]
         return dict(list(context.items()) + list(self.get_user_context().items()))
+
 
 class LoginUser(MenuMixin, LoginView):
     form_class = AuthenticationForm

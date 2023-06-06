@@ -1,0 +1,28 @@
+{% extends "main_app/base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Изменение статьи" %}
+{% endblock %}
+{% block extra_css %}
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap"
+          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <h1> {% trans "Изменение автора" %} </h1>
+    <div class="form-group">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-dark" type="submit">{% trans "Изменить автора" %}</button>
+        </form>
+    </div>
+{% endblock %}

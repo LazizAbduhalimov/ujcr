@@ -1,0 +1,23 @@
+{% extends "main_app/base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Создание статьи" %}
+{% endblock %}
+{% block extra_css %}
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap"
+          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+    <h1> {% trans "Добавление автора" %} </h1>
+    <div class="form-group">
+        <div class="bottommargin-sm">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-dark" type="submit">{% trans "Добавить автора" %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

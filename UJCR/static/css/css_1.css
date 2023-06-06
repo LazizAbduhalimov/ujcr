@@ -56,6 +56,16 @@ b, strong {
     font-weight: bolder
 }
 
+.custom ul {
+    float: right;
+    list-style-type: none;
+    font-size: xx-large;
+    color: white
+}
+.custom li{
+    padding: 10px 10px 10px 10px;
+}
+
 code, kbd, samp {
     font-family: monospace, monospace;
     font-size: 1em

@@ -11,7 +11,7 @@ def get_client_ip(request):
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
-        ip = request.META.get('HTTP_USER_AGENT') # В REMOTE_ADDR значение айпи пользователя
+        ip = request.META.get('HTTP_USER_AGENT')  # В REMOTE_ADDR значение айпи пользователя
     return ip
 
 
@@ -37,7 +37,6 @@ class ArticleView(MenuMixin, DetailView):
 
         context["object"] = Article.objects.get(slug=slug)
         context["published_date"] = Article.objects.get(slug=slug).published_date.strftime("%Y/%m/%d")
-        context["authors"] = Article.objects.get(slug=slug).authors_text.strip().split(",")
         context["current_path"] = str(self.request.path)[3:]
         context["current_lang"] = str(self.request.path)[:3]
 
@@ -69,17 +68,13 @@ class IssueDetail(MenuMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(IssueDetail, self).get_context_data(**kwargs)
         slug = self.kwargs['slug']
-        context["articles"] = Article.objects.filter(is_active=True,
-                                                     linked_volume=self.model.objects.filter(slug=slug)[0].id)
-
-        a = set()
-        for i in context["articles"]:
-            if i.chapter is None:
-                continue
-            a.add(i.chapter)
-
+        articles = Article.objects.filter(
+            is_draft=False, status=ArticleStatusEnum.published.value,
+            linked_volume=self.model.objects.filter(slug=slug)[0].id).select_related("type", ). \
+            prefetch_related("authors")
+        context["articles"] = articles
+        a = set(map(lambda x: x.type, articles))
         context["article_section"] = ArticleSection.objects.filter(title__in=list(a))
-        context["title"] = Volume.objects.get(slug=self.kwargs["slug"])
 
         context["current_path"] = str(self.request.path)[3:]
         return dict(list(context.items()) + list(self.get_user_context().items()))
@@ -106,23 +101,36 @@ class TagCloudPage(MenuMixin, ListView):
         return dict(list(context.items()) + list(self.get_user_context().items()))
 
 
-class Pdf_view(DetailView):
+def pdf_response(class_model, sender, *args, **kwargs):
+    try:
+        class_object = class_model.objects.get(slug=sender.kwargs["slug"])
+        return FileResponse(open(MEDIA_ROOT.replace("\\", "/") + "/" + str(class_object.file), 'rb'),
+                            content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404()
+
+
+class PdfViewArticle(DetailView):
     slug_field = "slug"
+
+    def get(self, *args, **kwargs):
+        return pdf_response(Article, self)
+
+
+class PdfViewVolume(DetailView):
+    slug_field = "slug"
+
+    def get(self, *args, **kwargs):
+        return pdf_response(Volume, self)
+
+
+class PdfViewComment(DetailView):
+    slug_field = "slug"
+
     def get(self, *args, **kwargs):
         try:
-            a = Article.objects.get(slug=self.kwargs["slug"])
-            return FileResponse(open(MEDIA_ROOT.replace("\\", "/") + "/" + str(a.file), 'rb'), content_type='application/pdf')
+            class_object = Comment.objects.get(pk=self.kwargs["pk"])
+            return FileResponse(open(MEDIA_ROOT.replace("\\", "/") + "/" + str(class_object.response_file), 'rb'),
+                                content_type='application/pdf')
         except FileNotFoundError:
             raise Http404()
-
-
-class Pdf_view_volume(DetailView):
-    slug_field = "slug"
-    def get(self, *args, **kwargs):
-        try:
-            a = Volume.objects.get(slug=self.kwargs["slug"])
-            return FileResponse(open(MEDIA_ROOT.replace("\\", "/") + "/" + str(a.file), 'rb'), content_type='application/pdf')
-        except FileNotFoundError:
-            raise Http404()
-
-
